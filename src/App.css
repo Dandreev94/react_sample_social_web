@@ -1,4 +1,8 @@
+.global {
+  background-color: #ffffff;
+}
 .app-wrapper {
+  min-height: 100vh;
   margin: 0 auto;
   width: 1200px;
   display: grid;
@@ -8,23 +12,23 @@
   ;
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
-  grid-gap: 10px;
+  grid-gap: 20px;
 }
 
 .nav {
   grid-area: n;
-  background: #56bd9b;
+  background: #96caff;
+  border-radius: 10px;
 }
 
 .header {
   grid-area: h;
-  background: #56bd9b;
-}
-.content img {
-  width: 100%;
+  background: #96caff;
+  border-radius: 10px;
 }
 
 .content {
   grid-area: c;
-  background: #56bd9b;
+  background: #96caff;
+  border-radius: 10px;
 }

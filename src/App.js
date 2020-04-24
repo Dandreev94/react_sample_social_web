@@ -6,10 +6,12 @@ import Profile from "./components/Profile";
 
 function App() {
   return (
-      <div className='app-wrapper'>
-        <Header />
-        <Navbar />
-        <Profile />
+      <div className='global'>
+          <div className='app-wrapper'>
+              <Header />
+              <Navbar />
+              <Profile />
+          </div>
       </div>
   );
 }
