@@ -1,9 +1,10 @@
 import React from 'react';
+import h from './Header.module.css';
 
 const Header = () => {
     return (
-        <header className='header'>
-            Retro 8-bit
+        <header className={h.header}>
+            Header
         </header>
     );
 }
