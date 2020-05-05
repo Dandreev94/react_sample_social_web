@@ -1,4 +1,4 @@
 .header {
     grid-area: h;
-    background: #96b0ff;
+    background: #96b0ff linear-gradient(to bottom, #8064cd, #96b0ff);
 }

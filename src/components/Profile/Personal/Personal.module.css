@@ -1,0 +1,20 @@
+.personal {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.avatar {
+    margin: 10px 40px 10px 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+.mainInfo {
+    font-size: 30px;
+}
+
+
