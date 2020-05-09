@@ -1,9 +1,4 @@
-.content {
-    grid-area: c;
-    background: #96b0ff;
-}
-
-.background {
+.backgroundImage {
     width: 100%;
     height: 30%;
     object-fit: cover;
