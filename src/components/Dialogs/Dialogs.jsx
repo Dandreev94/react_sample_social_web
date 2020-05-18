@@ -3,43 +3,12 @@ import c from './Dialogs.module.css';
 import Dialog from "./Dialog/Dialog";
 import Messages from "./Messages/Messages";
 
-const Dialogs = () => {
-    let dialogsData = [
-        {
-            userId: 1,
-            userName: 'Denis',
-            userMessages: [
-                {
-                    messageId: 1,
-                    data: 'Hello, Denis!'
-                },
-                {
-                    messageId: 2,
-                    data: 'How are you?'
-                }
-            ]
-        },
-        {
-            userId: 2,
-            userName: 'Ivan',
-            userMessages: [
-                {
-                    messageId: 1,
-                    data: 'Hello, Ivan!'
-                },
-                {
-                    messageId: 2,
-                    data: 'How are you doing?'
-                }
-            ]
-        },
-    ];
-
-    let dialogsComponents = dialogsData.map((userData) => {
+const Dialogs = (props) => {
+    let dialogsComponents = props.state.messages.map((userData) => {
         return <Dialog userId={userData.userId} userName={userData.userName}/>
 
     });
-    let messagesComponents = dialogsData.map((userData) => {
+    let messagesComponents = props.state.messages.map((userData) => {
         return <Messages messageData = {userData.userMessages} />
 
     });

@@ -3,21 +3,32 @@ import p from './Posts.module.css';
 import Post from "./Post/Post";
 
 const Posts = (props) => {
-    let postsData = [
-        {id: 1, message: 'Hello world!' },
-        {id: 2, message: 'Hello world! Again!' },
-        {id: 2, message: 'Hello world! x3!' },
-    ];
+    let postRef = React.createRef();
 
-    let postComponents = postsData.map((post) => {
+    let postComponents = props.posts.postItems.map((post) => {
         return <Post avatar = {props.avatar} message = {post.message}/>;
     });
+
+    let addPost = () => {
+        props.addPost();
+    }
+
+    let updatePostMessage = () => {
+        let text = postRef.current.value;
+        props.updatePostMessage(text);
+    }
 
     return (
         <div className={p.posts}>
             <div>
                 <h3>My posts</h3>
                 {postComponents}
+                <div>
+                    <textarea onChange={updatePostMessage} ref={postRef} value={props.posts.postMessage}/>
+                </div>
+                <div>
+                    <button onClick={addPost}>Post</button>
+                </div>
             </div>
         </div>
     );
