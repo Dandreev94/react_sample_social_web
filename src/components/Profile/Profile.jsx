@@ -12,10 +12,7 @@ const Profile = (props) => {
             <img className={c.backgroundImage} src={backgroundImageLink} alt='#'/>
             <Personal avatar={avatarImageLink}/>
             <Posts avatar={avatarImageLink}
-                   posts={props.state.posts}
-                   addPost={props.addPost}
-                   updatePostMessage={props.updatePostMessage}
-            />
+                   store={props.store}/>
         </div>
     );
 }
