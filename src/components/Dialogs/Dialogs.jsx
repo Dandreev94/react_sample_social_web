@@ -5,7 +5,6 @@ import Messages from "./Messages/Messages";
 import {sendMessageActionCreator, updateDialogMessageActionCreator} from "../../redux/dialogReducer";
 
 const Dialogs = (props) => {
-    console.log(props);
     let state = props.store.getState();
 
     let dialogsComponents = state.dialogs.messages.map((userData) => {
