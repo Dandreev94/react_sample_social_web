@@ -11,7 +11,7 @@ let store = {
                     {id: 2, message: 'Hello world! Again!' },
                     {id: 3, message: 'Hello world! x3!' },
                 ],
-                postMessage: 'HUI'
+                postMessage: ''
             }
         },
         dialogs: {
