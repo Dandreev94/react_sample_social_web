@@ -7,11 +7,11 @@ import {sendMessageActionCreator, updateDialogMessageActionCreator} from "../../
 const Dialogs = (props) => {
     let state = props.store.getState();
 
-    let dialogsComponents = state.dialogs.messages.map((userData) => {
+    let dialogsComponents = state.dialogReducer.messages.map((userData) => {
         return <Dialog userId={userData.userId} userName={userData.userName}/>
 
     });
-    let messagesComponents = state.dialogs.messages.map((userData) => {
+    let messagesComponents = state.dialogReducer.messages.map((userData) => {
         return <Messages messageData = {userData.userMessages} />
 
     });
@@ -36,7 +36,7 @@ const Dialogs = (props) => {
             </div>
             <div>
                 <div>
-                    <textarea placeholder='Enter your message' ref={textareaRef} value={state.dialogs.typingMessage} onChange={updateMessageBody}></textarea>
+                    <textarea placeholder='Enter your message' ref={textareaRef} value={state.dialogReducer.typingMessage} onChange={updateMessageBody}></textarea>
                 </div>
                 <div>
                     <button onClick={sendMessage}>Send</button>

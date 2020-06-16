@@ -1,24 +1,21 @@
 import React from 'react';
 import p from './Posts.module.css';
 import Post from "./Post/Post";
-import {addPostActionCreator, updatePostMessageActionCreator} from "../../../redux/profileReducer";
 
 const Posts = (props) => {
-    let state = props.store.getState();
-
     let postRef = React.createRef();
 
-    let postComponents = state.profile.posts.postItems.map((post) => {
-        return <Post avatar = {props.avatar} message = {post.message}/>;
+    let postComponents = props.posts.postItems.map((post) => {
+        return <Post key = {post.id} avatar = {props.posts.avatar} message = {post.message}/>;
     });
 
     let addPost = () => {
-        props.store.dispatch(addPostActionCreator());
+        props.addPost();
     }
 
     let updatePostMessage = () => {
         let text = postRef.current.value;
-        props.store.dispatch(updatePostMessageActionCreator(text));
+        props.updatePostMessage(text);
     }
 
     return (
@@ -27,7 +24,7 @@ const Posts = (props) => {
                 <h3>My posts</h3>
                 {postComponents}
                 <div>
-                    <textarea onChange={updatePostMessage} ref={postRef} value={state.profile.posts.postMessage}/>
+                    <textarea onChange={updatePostMessage} ref={postRef} value={props.posts.postMessage}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Post</button>

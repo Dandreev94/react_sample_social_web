@@ -2,6 +2,7 @@ import React from 'react';
 import c from './Profile.module.css';
 import Posts from "./Posts/Posts";
 import Personal from "./Personal/Personal";
+import PostsContainer from "./Posts/PostsContainer";
 
 const Profile = (props) => {
     let backgroundImageLink = 'https://images.wallpaperscraft.ru/image/gory_vershiny_snezhnyj_168351_1920x1080.jpg';
@@ -11,8 +12,7 @@ const Profile = (props) => {
         <div>
             <img className={c.backgroundImage} src={backgroundImageLink} alt='#'/>
             <Personal avatar={avatarImageLink}/>
-            <Posts avatar={avatarImageLink}
-                   store={props.store}/>
+            <PostsContainer />
         </div>
     );
 }
