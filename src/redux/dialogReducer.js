@@ -2,55 +2,65 @@ const SEND_MESSAGE = 'SEND-MESSAGE';
 const UPDATE_DIALOG_MESSAGE = 'UPDATE-DIALOG-MESSAGE';
 
 let initState = {
-    messages: [
-        {
-            userId: 1,
-            userName: 'Denis',
-            userMessages: [
-                {
-                    messageId: 1,
-                    data: 'Hello, Denis!'
-                },
-                {
-                    messageId: 2,
-                    data: 'How are you?'
-                }
-            ]
-        },
-        {
-            userId: 2,
-            userName: 'Ivan',
-            userMessages: [
-                {
-                    messageId: 1,
-                    data: 'Hello, Ivan!'
-                },
-                {
-                    messageId: 2,
-                    data: 'How are you doing?'
-                }
-            ]
-        }
-    ],
-    typingMessage: ''
+    dialogs: {
+        messages: [
+            {
+                userId: 1,
+                userName: 'Denis',
+                userMessages: [
+                    {
+                        messageId: 1,
+                        data: 'Hello, Denis!'
+                    },
+                    {
+                        messageId: 2,
+                        data: 'How are you?'
+                    }
+                ]
+            },
+            {
+                userId: 2,
+                userName: 'Ivan',
+                userMessages: [
+                    {
+                        messageId: 1,
+                        data: 'Hello, Ivan!'
+                    },
+                    {
+                        messageId: 2,
+                        data: 'How are you doing?'
+                    }
+                ]
+            }
+        ],
+        typingMessage: ''
+    }
 };
 
 let sendMessage = (state, userId) => {
-    state.messages[userId].userMessages.push(
-        {
-            id: 3,
-            data: state.typingMessage
-        }
-    );
-    state.typingMessage = '';
+    let copyMsg = state.dialogs.messages.map((item) => {
+        let newItem = {...item};
+        newItem.userMessages = item.userId === userId ?
+            [...item.userMessages, {id: 3, data: state.dialogs.typingMessage}] : [...item.userMessages]
 
-    return state;
+        return newItem;
+    })
+
+    return {
+        dialogs: {
+            messages: copyMsg,
+            typingMessage: ''
+        }
+    }
 }
 
 let updateDialogMessage = (state, msg) => {
-    state.typingMessage = msg;
-
-    return state;
+    return {
+        dialogs: {
+            messages: [...state.dialogs.messages],
+            typingMessage: msg
+        }
+    }
 }
 
 export const sendMessageActionCreator = (userId) => {
