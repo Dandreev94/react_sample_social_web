@@ -24,10 +24,10 @@ const Posts = (props) => {
                 <h3>My posts</h3>
                 {postComponents}
                 <div>
-                    <textarea onChange={updatePostMessage} ref={postRef} value={props.posts.postMessage}/>
+                    <textarea onChange={ () => {updatePostMessage()} } ref={postRef} value={props.posts.postMessage}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Post</button>
+                    <button onClick={ () => {addPost()} }>Post</button>
                 </div>
             </div>
         </div>

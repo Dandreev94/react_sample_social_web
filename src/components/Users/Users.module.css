@@ -1,0 +1,15 @@
+.usersPage {
+    padding: 20px;
+    color: linen;
+}
+
+.usersList {
+    padding-right: 60px;
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.selectedPage {
+    color: black;
+}
