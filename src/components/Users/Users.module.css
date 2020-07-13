@@ -10,6 +10,8 @@
     color: black;
 }
 
-.selectedPage {
-    color: black;
+.preloaderPosition {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -3,54 +3,43 @@ const UNFOLLOW = 'UNFOLLOW';
 const UPLOAD_USERS = 'UPLOAD-USERS';
 const SELECT_PAGE = 'SELECT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
+const SET_OFFSET = 'SET-OFFSET';
+const IS_LOADED = 'IS-LOADED';
 
 let initState = {
     users: [],
     currentPage: 1,
-    totalCount: 100,
-    offset: 20
+    totalCount: 1,
+    limit: 20,
+    offset: 1,
+    isLoaded: false
 };
 
-let follow = (state, userId) => {
-    let newUsers = state.users.map((user) => {
-        return user.id === userId ? {...user, followed: true} : {...user};
-    })
-
-    return {...state, users: newUsers}
-}
-
-let unfollow = (state, userId) => {
-    let newUsers = state.users.map((user) => {
-        return user.id === userId ? {...user, followed: false} : {...user};
-    })
-
-    return {...state, users: newUsers}
-}
-
-let uploadUsers = (state, users) => {
-    return {...state, users: users}
-}
-
-let selectPage = (state, page) => {
-    return {...state, currentPage: page}
-}
-
-let setTotalCount = (state, count) => {
-    return {...state, totalCount: count}
-}
-
 let usersReducer = (state = initState, action) => {
+    let newUsers = [];
     switch (action.type) {
         case FOLLOW:
-            return follow(state, action.userId);
+            newUsers = state.users.map((user) => {
+                return user.id === action.userId ? {...user, followed: true} : {...user};
+            })
+
+            return {...state, users: newUsers}
         case UNFOLLOW:
-            return unfollow(state, action.userId);
+            newUsers = state.users.map((user) => {
+                return user.id === action.userId ? {...user, followed: false} : {...user};
+            })
+
+            return {...state, users: newUsers}
         case UPLOAD_USERS:
-            return uploadUsers(state, action.users);
+            return {...state, users: action.users}
         case SELECT_PAGE:
-            return selectPage(state, action.page);
+            return {...state, currentPage: action.page}
         case SET_TOTAL_COUNT:
-            return setTotalCount(state, action.count);
+            return {...state, totalCount: action.count}
+        case SET_OFFSET:
+            return {...state, offset: state.offset + action.offset}
+        case IS_LOADED:
+            return {...state, isLoaded: action.isLoaded}
         default:
             return state
     }
@@ -58,38 +47,52 @@ let usersReducer = (state = initState, action) => {
 
 
 
-export const followAC = (userId) => {
+export const follow = (userId) => {
     return {
         type: FOLLOW,
         userId: userId
     }
 }
 
-export const unfollowAC = (userId) => {
+export const unfollow = (userId) => {
     return {
         type: UNFOLLOW,
         userId: userId
     }
 }
 
-export const uploadUsersAC = (users) => {
+export const uploadUsers = (users) => {
     return {
         type: UPLOAD_USERS,
         users: users
     }
 }
 
-export const selectPageAC = (page) => {
+export const selectPage = (page) => {
     return {
         type: SELECT_PAGE,
         page: page
     }
 }
 
-export const setTotalCountAC = (count) => {
+export const setTotalCount = (count) => {
     return {
         type: SET_TOTAL_COUNT,
         count: count
+    }
+}
+
+export const setOffset = (offset) => {
+    return {
+        type: SET_OFFSET,
+        offset: offset
+    }
+}
+
+export const setIsLoaded = (isLoaded) => {
+    return {
+        type: IS_LOADED,
+        isLoaded: isLoaded
     }
 }
 

@@ -1,23 +1,28 @@
 import React from 'react';
 import Users from './Users';
-import {followAC, selectPageAC, setTotalCountAC, unfollowAC, uploadUsersAC} from "../../redux/usersReducer";
+import {follow, selectPage, setTotalCount, unfollow, uploadUsers, setOffset, setIsLoaded} from "../../redux/usersReducer";
 import {connect} from "react-redux";
 import * as axios from "axios";
 
 class UsersContainer extends React.Component
 {
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response => {
+        this.props.setIsLoaded(false);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=${this.props.usersData.limit}`)
+            .then((response => {
             this.props.uploadUsers(response.data.items)
+            this.props.setTotalCount(response.data.totalCount);
+                this.props.setIsLoaded(true);
         }))
     }
 
     selectPage = (page) => {
         this.props.selectPage(page);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersData.offset}`)
+        this.props.setIsLoaded(false);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersData.limit}`)
             .then((response => {
                 this.props.uploadUsers(response.data.items);
-                this.props.setTotalCount(response.data.totalCount);
+                this.props.setIsLoaded(true);
             }))
     }
 
@@ -25,6 +30,7 @@ class UsersContainer extends React.Component
         return <Users usersData={this.props.usersData}
                       follow={this.props.follow}
                       unfollow={this.props.unfollow}
+                      setOffset={this.props.setOffset}
                       selectPage={this.selectPage}/>;
     }
 }
@@ -35,24 +41,14 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        follow : (userId) => {
-            dispatch(followAC(userId));
-        },
-        unfollow : (userId) => {
-            dispatch(unfollowAC(userId));
-        },
-        uploadUsers : (users) => {
-            dispatch(uploadUsersAC(users));
-        },
-        setTotalCount : (count) => {
-            dispatch(setTotalCountAC(count));
-        },
-        selectPage : (page) => {
-            dispatch(selectPageAC(page));
-        }
-    }
+const mapDispatchToProps =  {
+    follow,
+    unfollow,
+    setOffset,
+    setTotalCount,
+    uploadUsers,
+    selectPage,
+    setIsLoaded
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

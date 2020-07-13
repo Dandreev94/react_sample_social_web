@@ -1,0 +1,11 @@
+.selectedPage {
+    color: black;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.unselectedPage {
+    color: white;
+    margin-right: 2px;
+    margin-left: 2px;
+}
