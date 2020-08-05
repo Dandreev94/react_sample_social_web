@@ -2,28 +2,30 @@ import React from 'react';
 import Users from './Users';
 import {follow, selectPage, setTotalCount, unfollow, uploadUsers, setOffset, setIsLoaded} from "../../redux/usersReducer";
 import {connect} from "react-redux";
-import * as axios from "axios";
+import {userApi} from "../../api/socialNetworkApi";
 
 class UsersContainer extends React.Component
 {
     componentDidMount() {
         this.props.setIsLoaded(false);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=${this.props.usersData.limit}`)
-            .then((response => {
-            this.props.uploadUsers(response.data.items)
-            this.props.setTotalCount(response.data.totalCount);
+        userApi.uploadUsersData(this.props.usersData.limit).then( response => {
+            if (!response.error) {
+                this.props.uploadUsers(response.items)
+                this.props.setTotalCount(response.totalCount);
                 this.props.setIsLoaded(true);
-        }))
+            }
+        })
     }
 
     selectPage = (page) => {
         this.props.selectPage(page);
         this.props.setIsLoaded(false);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.usersData.limit}`)
-            .then((response => {
-                this.props.uploadUsers(response.data.items);
+        userApi.uploadUsersData(this.props.usersData.limit, page).then( response => {
+            if (!response.error) {
+                this.props.uploadUsers(response.items);
                 this.props.setIsLoaded(true);
-            }))
+            }
+        })
     }
 
     render() {

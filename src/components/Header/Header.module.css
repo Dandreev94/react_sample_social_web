@@ -2,3 +2,12 @@
     grid-area: h;
     background: #96b0ff linear-gradient(to bottom, #8064cd, #96b0ff);
 }
+
+.loginInfo {
+    float: right;
+    color: white;
+}
+
+.loginInfo a {
+    color: white;
+}
