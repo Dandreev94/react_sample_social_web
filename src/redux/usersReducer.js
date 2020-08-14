@@ -5,6 +5,7 @@ const SELECT_PAGE = 'SELECT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const SET_OFFSET = 'SET-OFFSET';
 const IS_LOADED = 'IS-LOADED';
+const IS_FOLLOWING_IN_PROGRESS = 'IS-FOLLOWING-IN-PROGRESS';
 
 let initState = {
     users: [],
@@ -12,7 +13,9 @@ let initState = {
     totalCount: 1,
     limit: 20,
     offset: 1,
-    isLoaded: false
+    isLoaded: false,
+    isFollowingInProgress: false,
+    followingInProgressArray: []
 };
 
 let usersReducer = (state = initState, action) => {
@@ -40,6 +43,13 @@ let usersReducer = (state = initState, action) => {
             return {...state, offset: state.offset + action.offset}
         case IS_LOADED:
             return {...state, isLoaded: action.isLoaded}
+        case IS_FOLLOWING_IN_PROGRESS:
+            return {...state,
+                    isFollowingInProgress: action.isFollowingInProgress,
+                    followingInProgressArray: action.isFollowingInProgress ?
+                            [...state.followingInProgressArray, action.userId] :
+                            state.followingInProgressArray.filter(id => id !== action.userId)
+            }
         default:
             return state
     }
@@ -50,49 +60,57 @@ let usersReducer = (state = initState, action) => {
 export const follow = (userId) => {
     return {
         type: FOLLOW,
-        userId: userId
+        userId
     }
 }
 
 export const unfollow = (userId) => {
     return {
         type: UNFOLLOW,
-        userId: userId
+        userId
     }
 }
 
 export const uploadUsers = (users) => {
     return {
         type: UPLOAD_USERS,
-        users: users
+        users
     }
 }
 
 export const selectPage = (page) => {
     return {
         type: SELECT_PAGE,
-        page: page
+        page
     }
 }
 
 export const setTotalCount = (count) => {
     return {
         type: SET_TOTAL_COUNT,
-        count: count
+        count
     }
 }
 
 export const setOffset = (offset) => {
     return {
         type: SET_OFFSET,
-        offset: offset
+        offset
     }
 }
 
 export const setIsLoaded = (isLoaded) => {
     return {
         type: IS_LOADED,
-        isLoaded: isLoaded
+        isLoaded
+    }
+}
+
+export const setIsFollowingInProgress = (isFollowingInProgress, userId) => {
+    return {
+        type: IS_FOLLOWING_IN_PROGRESS,
+        isFollowingInProgress,
+        userId
     }
 }
 

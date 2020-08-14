@@ -20,7 +20,8 @@ export const userApi = {
     },
     doUnfollow(id) {
         return  apiInstance.delete('follow/' + id).then(response => response.data);
+    },
+    getProfileInfo(id) {
+        return apiInstance.get(`profile/${id}`).then(response => response.data);
     }
 };
-
-//TODO: add all api requests here, make hold buttons

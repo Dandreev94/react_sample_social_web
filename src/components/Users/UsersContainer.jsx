@@ -1,6 +1,13 @@
 import React from 'react';
 import Users from './Users';
-import {follow, selectPage, setTotalCount, unfollow, uploadUsers, setOffset, setIsLoaded} from "../../redux/usersReducer";
+import {follow,
+        selectPage,
+        setTotalCount,
+        unfollow,
+        uploadUsers,
+        setOffset,
+        setIsLoaded,
+        setIsFollowingInProgress} from "../../redux/usersReducer";
 import {connect} from "react-redux";
 import {userApi} from "../../api/socialNetworkApi";
 
@@ -29,11 +36,7 @@ class UsersContainer extends React.Component
     }
 
     render() {
-        return <Users usersData={this.props.usersData}
-                      follow={this.props.follow}
-                      unfollow={this.props.unfollow}
-                      setOffset={this.props.setOffset}
-                      selectPage={this.selectPage}/>;
+        return <Users {...this.props} selectPage={this.selectPage}/>;
     }
 }
 
@@ -50,7 +53,8 @@ const mapDispatchToProps =  {
     setTotalCount,
     uploadUsers,
     selectPage,
-    setIsLoaded
+    setIsLoaded,
+    setIsFollowingInProgress
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

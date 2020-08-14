@@ -5,19 +5,23 @@ import {userApi} from "../../../api/socialNetworkApi";
 
 const User = (props) => {
     let follow = () => {
+        props.setIsFollowing(true, props.user.id);
         userApi.doFollow(props.user.id).then(response => {
             console.log(response);
             if(response.resultCode === 0) {
                 props.follow(props.user.id);
+                props.setIsFollowing(false, props.user.id);
             }
         })
     }
 
     let unfollow = () => {
+        props.setIsFollowing(true, props.user.id);
         userApi.doUnfollow(props.user.id).then(response => {
             console.log(response);
             if(response.resultCode === 0) {
                 props.unfollow(props.user.id);
+                props.setIsFollowing(false, props.user.id);
             }
         })
     }
@@ -42,8 +46,12 @@ const User = (props) => {
                 </div>
             </div>
             {props.user.followed ?
-                <button className={s.followButton} onClick={unfollow}>Unfollow</button> :
-                <button className={s.followButton} onClick={follow}>Follow</button>}
+                <button disabled={props.followingArray.some(id => id === props.user.id)}
+                        className={s.followButton}
+                        onClick={unfollow}>Unfollow</button> :
+                <button disabled={props.followingArray.some(id => id === props.user.id)}
+                        className={s.followButton}
+                        onClick={follow}>Follow</button>}
         </div>
     );
 }

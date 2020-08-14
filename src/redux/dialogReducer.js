@@ -37,40 +37,14 @@ let initState = {
     }
 };
 
-let sendMessage = (state, userId) => {
-    let copyMsg = state.dialogs.messages.map((item) => {
-        let newItem = {...item};
-        newItem.userMessages = item.userId === userId ?
-            [...item.userMessages, {id: 3, data: state.dialogs.typingMessage}] : [...item.userMessages]
-
-        return newItem;
-    })
-
-    return {
-        dialogs: {
-            messages: copyMsg,
-            typingMessage: ''
-        }
-    }
-}
-
-let updateDialogMessage = (state, msg) => {
-    return {
-        dialogs: {
-            messages: [...state.dialogs.messages],
-            typingMessage: msg
-        }
-    }
-}
-
-export const sendMessageActionCreator = (userId) => {
+export const sendMessage = (userId) => {
     return {
         type: SEND_MESSAGE,
         userId: userId
     }
 }
 
-export const updateDialogMessageActionCreator = (msg) => {
+export const updateDialogMessage = (msg) => {
     return {
         type: UPDATE_DIALOG_MESSAGE,
         message: msg
@@ -80,9 +54,27 @@ export const updateDialogMessageActionCreator = (msg) => {
 let dialogReducer = (state = initState, action) => {
     switch (action.type) {
         case SEND_MESSAGE:
-            return sendMessage(state, action.userId);
+            let copyMsg = state.dialogs.messages.map((item) => {
+                let newItem = {...item};
+                newItem.userMessages = item.userId === action.userId ?
+                    [...item.userMessages, {id: 3, data: state.dialogs.typingMessage}] : [...item.userMessages]
+
+                return newItem;
+            })
+
+            return {
+                dialogs: {
+                    messages: copyMsg,
+                    typingMessage: ''
+                }
+            }
         case UPDATE_DIALOG_MESSAGE:
-            return updateDialogMessage(state, action.message);
+            return {
+                dialogs: {
+                    messages: [...state.dialogs.messages],
+                    typingMessage: action.message
+                }
+            }
         default:
             return state
     }

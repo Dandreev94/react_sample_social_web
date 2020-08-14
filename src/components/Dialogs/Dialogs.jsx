@@ -15,7 +15,7 @@ const Dialogs = (props) => {
     });
 
     let updateMessageBody = () => {
-        props.updateMessageBody(textareaRef.current.value);
+        props.updateDialogMessage(textareaRef.current.value);
     }
 
     let sendMessage = () => {
